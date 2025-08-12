@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:rickandmortyapp/models/character.dart';
+import '../models/character.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://rickandmortyapi.com/api';
@@ -14,10 +14,12 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        
+
         final List<dynamic> results = data['results'];
-        allCharacters.addAll(results.map((json) => Character.fromJson(json)).toList());
-        
+        allCharacters.addAll(
+          results.map((json) => Character.fromJson(json)).toList(),
+        );
+
         nextPageUrl = data['info']['next'];
       } else {
         throw Exception('Falha ao carregar os personagens');

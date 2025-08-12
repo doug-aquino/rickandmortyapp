@@ -1,6 +1,5 @@
-
-import 'package:rickandmortyapp/models/character.dart';
-import 'package:rickandmortyapp/services/api_service.dart';
+import '../models/character.dart';
+import '../services/api_service.dart';
 
 class CharacterController {
   final ApiService _apiService = ApiService();

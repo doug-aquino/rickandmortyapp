@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidgets({super.key});
-  
+  const AppBarWidgets({super.key, required this.leftIcon});
+  final Widget leftIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,11 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 13.98, top: 17.48),
-              child: Icon(Icons.menu, color: Colors.white),
+              child: leftIcon,
             ),
             Column(
               children: [
-                Image.asset(
-                  'assets/logo_app.png',
-                  width: 115,
-                  height: 76.99,
-                ),
+                Image.asset('assets/logo_app.png', width: 115, height: 76.99),
 
                 Padding(
                   padding: const EdgeInsets.only(

@@ -4,7 +4,6 @@ import 'package:rickandmortyapp/models/character.dart';
 import 'package:rickandmortyapp/views/app_bar_widgets.dart';
 import 'package:rickandmortyapp/views/character_detail_screen.dart';
 
-
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
 
@@ -26,7 +25,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidgets(),
+      appBar: AppBarWidgets(leftIcon: Icon(Icons.menu, color: Colors.white)),
       body: FutureBuilder<List<Character>>(
         future: _charactersFuture,
         builder: (context, snapshot) {
@@ -40,9 +39,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
           final characters = snapshot.data!;
 
-          
           const double cardHeight = 160.0;
-         
 
           return SingleChildScrollView(
             child: Padding(
@@ -80,7 +77,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 16, top: 12, right: 203, bottom: 11),
+                              padding: const EdgeInsets.only(
+                                left: 16,
+                                top: 12,
+                                right: 203,
+                                bottom: 11,
+                              ),
                               child: Text(
                                 character.name,
                                 textAlign: TextAlign.start,

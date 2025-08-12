@@ -1,4 +1,4 @@
-import 'package:rickandmortyapp/models/loacation.dart';
+import 'loacation.dart';
 
 class Character {
   final int id;

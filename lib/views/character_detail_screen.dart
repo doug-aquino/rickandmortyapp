@@ -26,10 +26,7 @@ class CharacterDetailScreen extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: TextStyle(
-                color: Colors.grey[300],
-                fontSize: 16,
-              ),
+              style: TextStyle(color: Colors.grey[300], fontSize: 16),
             ),
           ),
         ],
@@ -40,7 +37,14 @@ class CharacterDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidgets(),
+      appBar: AppBarWidgets(
+        leftIcon: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -81,16 +85,31 @@ class CharacterDetailScreen extends StatelessWidget {
                       _buildInfoRow('Espécie', character.species),
                       _buildInfoRow('Gênero', character.gender),
                       _buildInfoRow('Origem', character.origin.name),
-                      _buildInfoRow('Última localização', character.location.name),
+                      _buildInfoRow(
+                        'Última localização',
+                        character.location.name,
+                      ),
                       FutureBuilder<String>(
-                        future: _controller.fetchEpisodeName(character.episode.first),
+                        future: _controller.fetchEpisodeName(
+                          character.episode.first,
+                        ),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return _buildInfoRow('Primeira aparição', 'Carregando...');
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return _buildInfoRow(
+                              'Primeira aparição',
+                              'Carregando...',
+                            );
                           } else if (snapshot.hasError) {
-                            return _buildInfoRow('Primeira aparição', 'Não disponível');
+                            return _buildInfoRow(
+                              'Primeira aparição',
+                              'Não disponível',
+                            );
                           } else {
-                            return _buildInfoRow('Primeira aparição', snapshot.data ?? 'Não disponível');
+                            return _buildInfoRow(
+                              'Primeira aparição',
+                              snapshot.data ?? 'Não disponível',
+                            );
                           }
                         },
                       ),
