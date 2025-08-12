@@ -45,10 +45,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Wrap(
-                runSpacing: 15, // Espaço vertical entre as linhas de cards
-                alignment: WrapAlignment.center, // Centraliza os cards
+                runSpacing: 15,
+                alignment: WrapAlignment.center,
                 children: characters.map((character) {
-                  // Cada card é envolvido por um SizedBox com o tamanho definido.
                   return SizedBox(
                     height: cardHeight,
                     child: Card(

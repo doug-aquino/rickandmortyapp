@@ -24,7 +24,7 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 83,
-                    top: 5,
+                    top: 10,
                     right: 83,
                     bottom: 21,
                   ),
