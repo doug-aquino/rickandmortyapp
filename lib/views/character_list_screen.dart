@@ -15,29 +15,59 @@ class CharacterListScreen extends StatefulWidget {
 class _CharacterListScreenState extends State<CharacterListScreen> {
   final CharacterController _controller = CharacterController();
   late Future<List<Character>> _charactersFuture;
+  List<Character> _allCharacters = [];
+  List<Character> _filteredCharacters = [];
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
     _charactersFuture = _controller.fetchCharacters();
+    _charactersFuture.then((characters) {
+      setState(() {
+        _allCharacters = characters;
+        _filteredCharacters = characters;
+      });
+    });
+  }
+
+  void _filterCharacters(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (_searchQuery.isEmpty) {
+        _filteredCharacters = _allCharacters;
+      } else {
+        _filteredCharacters = _allCharacters
+            .where((character) =>
+                character.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidgets(leftIcon: Icon(Icons.menu, color: Colors.white)),
+      appBar: AppBarWidgets(
+        leftIcon: const Icon(Icons.menu, color: Colors.white),
+        onSearchChanged: _filterCharacters,
+      ),
       body: FutureBuilder<List<Character>>(
         future: _charactersFuture,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              _allCharacters.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Erro: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (_filteredCharacters.isEmpty && _searchQuery.isNotEmpty) {
+            return const Center(
+                child: Text('Nenhum personagem encontrado com esse nome.'));
+          } else if (_allCharacters.isEmpty) {
             return const Center(child: Text('Nenhum personagem encontrado.'));
           }
 
-          final characters = snapshot.data!;
+          final characters = _filteredCharacters;
 
           const double cardHeight = 160.0;
 
@@ -64,6 +94,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                               builder: (context) =>
                                   CharacterDetailScreen(character: character),
                             ),
+
                           );
                         },
                         child: Column(
@@ -79,7 +110,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                               padding: const EdgeInsets.only(
                                 left: 16,
                                 top: 12,
-                                right: 203,
+                                right: 16, // Ajuste para evitar overflow
                                 bottom: 11,
                               ),
                               child: Text(
