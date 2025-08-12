@@ -38,8 +38,11 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         _filteredCharacters = _allCharacters;
       } else {
         _filteredCharacters = _allCharacters
-            .where((character) =>
-                character.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+            .where(
+              (character) => character.name.toLowerCase().contains(
+                _searchQuery.toLowerCase(),
+              ),
+            )
             .toList();
       }
     });
@@ -62,7 +65,8 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             return Center(child: Text('Erro: ${snapshot.error}'));
           } else if (_filteredCharacters.isEmpty && _searchQuery.isNotEmpty) {
             return const Center(
-                child: Text('Nenhum personagem encontrado com esse nome.'));
+              child: Text('Nenhum personagem encontrado com esse nome.'),
+            );
           } else if (_allCharacters.isEmpty) {
             return const Center(child: Text('Nenhum personagem encontrado.'));
           }
@@ -94,7 +98,6 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                               builder: (context) =>
                                   CharacterDetailScreen(character: character),
                             ),
-
                           );
                         },
                         child: Column(
@@ -110,7 +113,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                               padding: const EdgeInsets.only(
                                 left: 16,
                                 top: 12,
-                                right: 16, // Ajuste para evitar overflow
+                                right: 16,
                                 bottom: 11,
                               ),
                               child: Text(

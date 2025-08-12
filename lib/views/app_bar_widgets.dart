@@ -8,7 +8,8 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final Widget leftIcon;
-  final ValueChanged<String>? onSearchChanged; // Callback para notificar a mudança no texto
+  final ValueChanged<String>?
+  onSearchChanged; // Callback para notificar a mudança no texto
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,11 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
                 Flexible(
                   child: Column(
                     children: [
-                      Image.asset('assets/logo_app.png',
-                          width: 115, height: 76.99),
+                      Image.asset(
+                        'assets/logo_app.png',
+                        width: 115,
+                        height: 76.99,
+                      ),
                       const Padding(
                         padding: EdgeInsets.only(
                           left: 20, // Ajuste para centralizar
@@ -60,8 +64,10 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
             // Adicionando a Barra de Pesquisa
             if (onSearchChanged != null)
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
                 child: TextField(
                   onChanged: onSearchChanged,
                   decoration: InputDecoration(
@@ -86,7 +92,6 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // Ajuste o tamanho para acomodar a barra de pesquisa
   Size get preferredSize =>
       Size.fromHeight(onSearchChanged != null ? 200.0 : 130.92);
 }
